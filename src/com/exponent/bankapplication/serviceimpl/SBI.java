@@ -20,11 +20,10 @@ public class SBI implements RBI {
 		System.out.println();
 		ac.setAccountName(getValidAccountName());
 		System.out.println();
-		
+
 		System.out.println();
 		System.out.println("Enter address of Account Holder:");
-		ac.setAddress(sc.next());;
-		System.out.println();
+		ac.setAddress(sc.next());
 
 		sc.nextLine();
 		ac.setAadharCard(getValidAadharCardNo());
@@ -39,38 +38,26 @@ public class SBI implements RBI {
 		ac.setMailId(getMailId());
 		System.out.println();
 
-		ac.setAccountBalance(getValidBalance());
+		System.out.println("Enter your account opening balance :");
+
+		long balance = sc.nextLong();
+		ac.setAccountBalance(balance);
 
 		System.out.println("******Account register Succesfully*******");
 
 	}
 
-	private long getValidAccountNoCheck() {
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter your account no:");
-		long accNo = 0;
-
-		try {
-			accNo = sc.nextLong();
-
-		} catch (Exception e) {
-			System.out.println("Account  no  should  be  in Digits  only");
-			return getValidAccountNoCheck();
-		}
-
-		return accNo;
-
-	}
-
+	
 	// validations
 	private long getValidAccountNo() {
-		long accNo = getValidAccountNoCheck();
+		System.out.println("Enter Your Account Number: ");
+		long accNo = sc.nextLong();
+		
 
 		// convert accno to String
-		String convert = String.valueOf(accNo);
+		String accNostring = String.valueOf(accNo);
 
-		if (convert.length() == 12) { // accNo == 12 kiya toh accno mai 12 daala toh condition true hoga esliye onvert
-										// long to string
+		if (accNostring.length() == 12 && Pattern.matches("[0-9]{12}", accNostring)) {
 			System.out.println("Valid  account no added");
 		} else {
 			System.out.println("Invalid account  no  , Account  no  should be  of  12 digit");
@@ -97,7 +84,8 @@ public class SBI implements RBI {
 	private String getValidAadharCardNo() {
 		System.out.println("Enter your AadharCard no:");
 		String aadharNo = sc.nextLine();
-		if (Pattern.matches("^[2-9]{1}[0-9]{3}[ -]?[0-9]{4}[ -]?[0-9]{4}$", aadharNo) && aadharNo.length() == 14 && aadharNo != null) {
+		if (Pattern.matches("^[2-9]{1}[0-9]{3}[ -]?[0-9]{4}[ -]?[0-9]{4}$", aadharNo) && aadharNo.length() == 14
+				&& aadharNo != null) {
 			System.out.println("Valid Aadhar card no added");
 		} else {
 			System.out.println("Invalid Aadhar no , only 12 numbers allowed ");
@@ -158,23 +146,11 @@ public class SBI implements RBI {
 		return mailId;
 	}
 
-	private double getValidBalance() {
-		System.out.println("Enter your account opening balance :");
-		double balance = 0;
-
-		try {
-			balance = sc.nextLong();
-		} catch (Exception e) {
-			System.out.println("Enter the balance  in digits only ");
-			return getValidBalance();
-		}
-		return balance;
-	}
-
 	@Override
 	public void showAccountDetails() {
 
-		long accNo = getValidAccountNoCheck();
+		System.out.println("Enter Account No.:");
+		long accNo = sc.nextLong();
 
 		System.out.println();
 
@@ -189,7 +165,8 @@ public class SBI implements RBI {
 	@Override
 	public void showAccountBalance() {
 
-		long accNo = getValidAccountNoCheck();
+		System.out.println("Enter Account No.:");
+		long accNo = sc.nextLong();
 
 		if (accNo == ac.getAccountNo()) {
 			System.out.println("Your account balance is : " + ac.getAccountBalance());
@@ -202,7 +179,9 @@ public class SBI implements RBI {
 	@Override
 	public void depositMoney() {
 
-		long accNo = getValidAccountNoCheck();
+		System.out.println("Enter Account No.:");
+		long accNo = sc.nextLong();
+
 		if (accNo == ac.getAccountNo()) {
 			System.out.println("Enter the amount  you want  to deposit :");
 			int deposit = sc.nextInt();
@@ -223,7 +202,9 @@ public class SBI implements RBI {
 	@Override
 	public int withdrawMoney() {
 
-		long accNo = getValidAccountNoCheck();
+		System.out.println("Enter Account No.:");
+		long accNo = sc.nextLong();
+
 		int withdraw = 0;
 
 		if (accNo == ac.getAccountNo()) {
@@ -251,7 +232,8 @@ public class SBI implements RBI {
 	@Override
 	public void updateAccountDetails() {
 
-		long accNo = getValidAccountNoCheck();
+		System.out.println("Enter Account No.:");
+		long accNo = sc.nextLong();
 
 		if (accNo == ac.getAccountNo()) {
 
@@ -269,7 +251,8 @@ public class SBI implements RBI {
 				System.out.println("------------------------------------------");
 				System.out.println();
 
-				int choice = getValidChoice();
+				System.out.println("Enter your  choice  between 1 to  4 :");
+				int choice = sc.nextInt();
 
 				switch (choice) {
 
@@ -280,7 +263,7 @@ public class SBI implements RBI {
 				case 2:
 					updateEmailId();
 					break;
-					
+
 				case 3:
 					updateAddress();
 					break;
@@ -301,22 +284,7 @@ public class SBI implements RBI {
 
 	}
 
-	//choice code
-	private int getValidChoice() {
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter your  choice  between 1 to  4 :");
-		int ch = 0;
-		try {
-			ch = sc.nextInt();
-		} catch (Exception e) {
-			System.out.println("Invalid  input must be  in Integer");
-			return getValidChoice();
-
-		}
-
-		return ch;
-	}
-
+	
 	// update code
 
 	public void updateMobileNo() {
@@ -334,7 +302,7 @@ public class SBI implements RBI {
 		System.out.println("Your updated emailId is : " + ac.getMailId());
 
 	}
-	
+
 	public void updateAddress() {
 
 		System.out.println("Enter updated address:");
@@ -343,6 +311,5 @@ public class SBI implements RBI {
 		System.out.println("Your updated address is : " + ac.getAddress());
 
 	}
-
 
 }

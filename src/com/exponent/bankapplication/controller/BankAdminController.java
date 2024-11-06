@@ -12,7 +12,7 @@ public class BankAdminController {
 
 		System.out.println("*********WELCOME TO SBI BANK***********");
 
-		
+		Scanner sc = new Scanner(System.in);
 
 		boolean flag = true;
 		RBI s = new SBI();
@@ -33,8 +33,8 @@ public class BankAdminController {
 			System.out.println();
 
 			
-			
-			int choice = getValidChoice();
+			System.out.println("Enter your  choice  between 1 to  7 :");
+			int choice = sc.nextInt();
 
 			switch (choice) {
 			case 1:
@@ -76,23 +76,9 @@ public class BankAdminController {
 			}
 
 		}
-		System.out.println("********THANKYOU FOR BANKING*********");
+		System.out.println("********THANK YOU*********");
 
 	}
 
-	private static int getValidChoice() {
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter your  choice  between 1 to  7 :");
-		int ch = 0;
-		try {
-		 ch =sc.nextInt();
-		}catch (Exception e) {
-			System.out.println("Invalid  input must be  in Integer");
-			return getValidChoice();
-			
-		}
-		
-		return ch;
-	}
 
 }
