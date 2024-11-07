@@ -110,19 +110,12 @@ public class SBI implements RBI {
 	private long getValidMobileNo() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter your new mobile no:");
-		long mobileNo = 0;
-
-		try {
-			mobileNo = sc.nextLong();
-		} catch (Exception e) {
-			System.out.println("Enter the mobileno in digits");
-			return getValidMobileNo();
-		}
+		long mobileNo = sc.nextLong();
 
 		// convert mobileNo to String
-		String convert = String.valueOf(mobileNo);
+		String mobileNoString = String.valueOf(mobileNo);
 
-		if (Pattern.matches("[0-9]{10}", convert) && convert.length() == 10) {
+		if (Pattern.matches("[0-9]{10}", mobileNoString) && mobileNoString.length() == 10) {
 			System.out.println("Valid  Mobile no added");
 		} else {
 			System.out.println("Invalid Mobile no , only 10 numbers allowed");
